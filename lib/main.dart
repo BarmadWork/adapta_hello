@@ -1,8 +1,15 @@
+import 'package:adapta_hello/notification_bloc/bloc.dart';
 import 'package:adapta_hello/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => NotificationBloc())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
