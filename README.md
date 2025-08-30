@@ -1,16 +1,25 @@
-# adapta_hello
+# Adapta Hello
 
-A new Flutter project.
+This is a small Flutter app where we use BLoC to manage notifications.  
 
-## Getting Started
+# Getting Started
+## How to set up the project
 
-This project is a starting point for a Flutter application.
+1. Clone or download the project:
 
-A few resources to get you started if this is your first Flutter project:
+    git clone https://github.com/BarmadWork/adapta_hello.git
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Move to the project folder and install all the packages:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    cd adapta_hello
+    flutter pub get
+
+3. Run the project with:
+
+    flutter run
+
+## How to run the tests
+
+    In the project folder, run:
+
+        flutter test
