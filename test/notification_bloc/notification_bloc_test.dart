@@ -37,7 +37,9 @@ void main() {
         final state = bloc.state;
         expect(state, isA<NotificationLoaded>());
         if (state is NotificationLoaded) {
-          expect(state.notifications.length, 3);
+          expect(state.unhandled.length, 3);
+          expect(state.inProgress.length, 1);
+          expect(state.completed.length, 1);
         }
       },
     );

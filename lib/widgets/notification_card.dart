@@ -117,8 +117,8 @@ class NotificationCard extends StatelessWidget {
                 top: 6,
                 right: 4,
                 child: Icon(
-                  Icons.question_mark_rounded,
-                  color: Colors.grey,
+                  Icons.insert_emoticon_outlined,
+                  color: stripeColor,
                   size: 16,
                 ),
               ),

@@ -1,5 +1,10 @@
-import 'package:adapta_hello/pages/overview_page/unhandled_notifications.dart';
+import 'package:adapta_hello/models/notification_model.dart';
+import 'package:adapta_hello/notification_bloc/bloc.dart';
+import 'package:adapta_hello/notification_bloc/event.dart';
+import 'package:adapta_hello/notification_bloc/state.dart';
+import 'package:adapta_hello/pages/overview_page/notifications_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Overview extends StatefulWidget {
   const Overview({super.key});
@@ -9,6 +14,13 @@ class Overview extends StatefulWidget {
 }
 
 class _OverviewState extends State<Overview> {
+  @override
+  void initState() {
+    super.initState();
+    // Trigger loading notifications
+    context.read<NotificationBloc>().add(LoadNotifications());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,60 +42,94 @@ class _OverviewState extends State<Overview> {
                     unselectedLabelColor: Colors.white70,
                     indicatorColor: Colors.white,
                     tabs: [
+                      // Openstaand tab
                       Tab(
                         text: 'Openstaand',
                         icon: Stack(
                           children: [
                             Icon(Icons.notifications),
-                            Container(
-                              margin: EdgeInsets.only(left: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 14,
-                                minHeight: 14,
-                              ),
-                              child: const Text(
-                                '3',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                            BlocBuilder<NotificationBloc, NotificationState>(
+                              builder: (context, state) {
+                                int count = 0;
+                                if (state is NotificationLoaded) {
+                                  count = state.unhandled.length;
+                                  return count > 0
+                                      ? Container(
+                                          margin: EdgeInsets.only(left: 16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minWidth: 14,
+                                            minHeight: 14,
+                                          ),
+                                          child: Text(
+                                            '$count',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )
+                                      : SizedBox.shrink();
+                                } else {
+                                  return SizedBox.shrink();
+                                }
+                              },
                             ),
                           ],
                         ),
                       ),
+
+                      // Mee bezig tab
                       Tab(
                         text: 'Mee bezig',
                         icon: Stack(
                           children: [
                             Icon(Icons.access_time),
-                            Container(
-                              margin: EdgeInsets.only(left: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 14,
-                                minHeight: 14,
-                              ),
-                              child: const Text(
-                                '2',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                            BlocBuilder<NotificationBloc, NotificationState>(
+                              builder: (context, state) {
+                                int count = 0;
+                                if (state is NotificationLoaded) {
+                                  count = state.inProgress.length;
+
+                                  return count > 0
+                                      ? Container(
+                                          margin: EdgeInsets.only(left: 16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minWidth: 14,
+                                            minHeight: 14,
+                                          ),
+                                          child: Text(
+                                            '$count',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )
+                                      : SizedBox.shrink();
+                                } else {
+                                  return SizedBox.shrink();
+                                }
+                              },
                             ),
                           ],
                         ),
                       ),
+
+                      // Afgerond tab
                       Tab(
                         text: 'Afgerond',
                         icon: Icon(Icons.check_circle_outline),
@@ -109,9 +155,9 @@ class _OverviewState extends State<Overview> {
             Expanded(
               child: TabBarView(
                 children: [
-                  UnhandledNotifications(),
-                  Center(child: Text('Mee bezig')),
-                  Center(child: Text('Afgerond')),
+                  NotificationList(status: NotificationStatus.unhandled),
+                  NotificationList(status: NotificationStatus.inProgress),
+                  NotificationList(status: NotificationStatus.completed),
                 ],
               ),
             ),
