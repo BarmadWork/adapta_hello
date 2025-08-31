@@ -4,16 +4,16 @@ import 'package:adapta_hello/notification_bloc/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetainPage extends StatefulWidget {
+class DetailPage extends StatefulWidget {
   final NotificationModel notification;
 
-  const DetainPage({super.key, required this.notification});
+  const DetailPage({super.key, required this.notification});
 
   @override
-  State<DetainPage> createState() => _DetainPageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _DetainPageState extends State<DetainPage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     final today = DateTime(2025, 8, 30); // just for testing

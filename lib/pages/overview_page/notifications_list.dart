@@ -1,7 +1,7 @@
 import 'package:adapta_hello/models/notification_model.dart';
 import 'package:adapta_hello/notification_bloc/bloc.dart';
 import 'package:adapta_hello/notification_bloc/state.dart';
-import 'package:adapta_hello/pages/detain_page.dart';
+import 'package:adapta_hello/pages/detail_page.dart';
 import 'package:adapta_hello/widgets/notification_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,7 +82,7 @@ class _NotificationListState extends State<NotificationList> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                DetainPage(notification: notification),
+                                DetailPage(notification: notification),
                           ),
                         );
                       },
@@ -120,7 +120,7 @@ class _NotificationListState extends State<NotificationList> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) =>
-                                DetainPage(notification: notification),
+                                DetailPage(notification: notification),
                           ),
                         );
                       },
